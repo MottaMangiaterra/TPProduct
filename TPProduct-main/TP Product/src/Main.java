@@ -1,3 +1,5 @@
+import com.motta.Category.Model.Repositories.CategoryRepository;
+import com.motta.Category.View.CategoryView;
 import com.motta.Product.Controller.ProductController;
 import com.motta.Product.Model.Repositories.ProductRepository;
 import com.motta.Product.View.ProductView;
@@ -7,8 +9,11 @@ public class Main {
 
         ProductView productView = new ProductView();
         ProductRepository productRepository = new ProductRepository();
+        CategoryView categoryView = new CategoryView();
+        CategoryRepository categoryRepository = new CategoryRepository();
 
-        ProductController productController = new ProductController(productView,productRepository);
+        ProductController productController = new ProductController(productView, productRepository,
+                categoryView, categoryRepository);
 
         menu(productController);
     }
@@ -20,10 +25,9 @@ public class Main {
             productController.createProduct();
         }
 
-        productController.createProduct();
-        productController.getProductView().listProduct(productController.getProductRepository().getListProducts());
+        productController.readProduct();
         productController.updateProduct();
-        productController.removeProduct();
+        productController.deleteProduct();
         productController.readProduct();
 
     }

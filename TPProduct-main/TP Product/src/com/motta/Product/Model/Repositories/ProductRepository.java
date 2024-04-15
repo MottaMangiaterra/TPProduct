@@ -4,34 +4,25 @@ import com.motta.Product.Model.Entities.Product;
 import java.util.ArrayList;
 
 public class ProductRepository {
-    private ArrayList<Product> ListProducts;
-
+    private ArrayList<Product> listProducts;
     public ProductRepository() {
-        ListProducts = new ArrayList<>();
+        listProducts = new ArrayList<>();
     }
 
+    public ArrayList<Product> getListProducts() {
+        return listProducts;
+    }
     public void addtoProductList(Product product) {
-        this.ListProducts.add(product);
+        this.listProducts.add(product);
     }
+    public Product search(Integer ID){
 
-    public boolean isEmpty(){
-        return this.ListProducts.isEmpty();
-    }
+        if (!this.listProducts.isEmpty()){
 
-    public Product readProductList(int index){
-        return this.ListProducts.get(index);
-    }
-
-    public int sizeofProductList(){
-        return this.ListProducts.size();
-    }
-
-    public Product searchbyID(Integer ID){
-
-        if (!this.ListProducts.isEmpty()){
-            for (Product aproduct : this.ListProducts) {
+            for (Product aproduct : this.listProducts) {
 
                 if (aproduct.getId().equals(ID)) {
+
                     return aproduct;
                 }
             }
@@ -39,33 +30,26 @@ public class ProductRepository {
 
         return null;
     }
+    public boolean update(int tobechangedid, Product updatedproduct){
 
-    public boolean changeaProduct(int ID, Product updatedproduct){
-
-        Product tobechanged=searchbyID(ID);
+        Product tobechanged= search(tobechangedid);
 
         if (tobechanged != null){
 
-            this.ListProducts.set(this.ListProducts.indexOf(tobechanged),updatedproduct);
+            this.listProducts.set(this.listProducts.indexOf(tobechanged),updatedproduct);
 
             return true;
         }
 
         return false;
     }
+    public boolean delete(Product toberemoved){
 
-    public void deleteProduct(Product toberemoved){
+        if (!this.listProducts.isEmpty()){
 
-        if (!this.ListProducts.isEmpty()){
-            this.ListProducts.remove(toberemoved);
+            return this.listProducts.remove(toberemoved);
         }
-    }
 
-    public ArrayList<Product> getListProducts() {
-        return ListProducts;
-    }
-
-    public void setListProducts(ArrayList<Product> listProducts) {
-        ListProducts = listProducts;
+        return false;
     }
 }
